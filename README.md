@@ -1,6 +1,6 @@
 # weather_module
 
-This module suggests recipes based on the season (summer/winter/monsoon)
+This program suggests recipes based on the season (summer/winter/monsoon)
 For now, it only works for the summer season since the dataset for winter and monsoon aren't cleaned and ready yet.
 
 This module will output top N recipes that are best to be prepared right now (according to the season).  
