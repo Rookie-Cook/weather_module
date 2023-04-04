@@ -6,7 +6,7 @@ import prefer_and_avoid_ingredients
 import string
 
 
-df = pd.read_excel(r'C:\Users\geove\OneDrive\Docs\Sem 6\Subjects\Mini Project\RookieCook\Datasets\Indian Food Recipes\archive\IndianFoodDatasetXLS.xlsx')
+df = pd.read_excel(r'IndianFoodDatasetXLS.xlsx')
 
 n = len(df)
 
