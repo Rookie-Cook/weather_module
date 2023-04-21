@@ -1,4 +1,5 @@
 import pandas as pd
+# import weather_detection
 
 
 #----------------------------------------------------------#
@@ -38,6 +39,8 @@ summer_avoid_list.sort()
 # FO: 
 print("\n\nThe python list of ingredients to avoid in summer:")
 print(summer_avoid_list)
+
+
 
 
 

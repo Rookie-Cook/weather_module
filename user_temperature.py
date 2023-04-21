@@ -1,12 +1,12 @@
 import os 
-import time
+# import time
 from selenium import webdriver
 os.environ['PATH'] += r"C:\SeleniumDrivers"
 driver = webdriver.Chrome()
 
 
-driver.get('https://www.accuweather.com/en/in/kurla-west/3352451/weather-forecast/3352451?current=true')
-temperature_innerHTML = list(driver.find_element("xpath",'/html/body/div/div[7]/div[1]/div[1]/a[1]/div[1]/div[1]/div/div/div[1]').get_attribute('outerHTML'))
+driver.get('https://www.accuweather.com/en/in/mumbai/204842/weather-forecast/204842')
+temperature_innerHTML = list(driver.find_element("xpath",'/html/body/div/div[7]/div[1]/div[1]/a[1]/div[1]/div[1]/div/div').get_attribute('outerHTML'))
 temp_list1 = []
 
 for i in temperature_innerHTML:

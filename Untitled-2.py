@@ -3,22 +3,19 @@ import numpy as np
 import string
 import difflib
 import prefer_and_avoid_ingredients 
+import weather_detection
 import string
 
 
-df = pd.read_excel(r'IndianFoodDatasetXLS.xlsx')
+df = pd.read_excel(r'C:\Users\geove\OneDrive\Docs\Sem 6\Subjects\Mini Project\RookieCook\Datasets\Indian Food Recipes\archive\IndianFoodDatasetXLS.xlsx')
 
 n = len(df)
 
 list_a = df['TranslatedIngredients'].tolist()
-
 # print(list_a)
 
-
-
-redundant_words = ['tablespoon','to','cut','into','chop','frying','original','low','fat','make','the','inch','all','tightly','packed','required','requirement','finely','taste','for','deep','cook','tablespoons','teaspoon','teaspoons','needed','chopped','roughly','cup','cups','salt','to','taste','thinly','as','per','oil','sliced','slice','or','and','halved','half','soaked','overnight','pressure','cooked','coarse','coarsely','pounded','slit','lengthwise','pinch','fresh','wash','grated']
+redundant_words = np.array(['tsp','tablespoon','to','cut','into','chop','if','you','like','a','frying','original','low','fat','make','the','inch','all','tightly','packed','required','requirement','finely','taste','for','deep','cook','tablespoons','teaspoon','teaspoons','needed','chopped','roughly','cup','cups','salt','to','taste','thinly','as','per','oil','sliced','slice','or','and','halved','half','soaked','overnight','pressure','cooked','coarse','coarsely','pounded','slit','lengthwise','pinch','fresh','wash','grated'])
 list_c = []
-
 
 # type(list_a[1])
 
@@ -28,7 +25,7 @@ for recipe in list_a:
     list_c.append(b.translate(c))
 
     
-print("\n\nlist_c is:")
+print("list_c is:")
 print(list_c)
 
 list_d = []
@@ -58,16 +55,30 @@ print(list_d)
 # score_list.sort(reverse=True)
 # print(score_list)
 
+#-----------------------------------------------------------#
+#Selecting a the pair of lists that is appropriate
+
+
+if weather_detection.season == 'summer':
+	preferred_ing_list = prefer_and_avoid_ingredients.summer_prefer_list 
+	avoided_ing_list = prefer_and_avoid_ingredients.summer_avoid_list
+# elif weather_detection.season == 'winter':
+# 	preferred_ing_list = prefer_and_avoid_ingredients.winter_prefer_list 
+# 	avoided_ing_list = prefer_and_avoid_ingredients.winter_avoid_list
+# elif weather_detection.season == 'monsoon':
+# 	preferred_ing_list = prefer_and_avoid_ingredients.monsoon_prefer_list 
+# 	avoided_ing_list = prefer_and_avoid_ingredients.monsoon_avoid_list
+
 
 score_dict = {}
 for i in list_d:
     recipe_score = 0
     for j in i:
-        temp_list1 = difflib.get_close_matches(j, prefer_and_avoid_ingredients.summer_prefer_list)
+        temp_list1 = difflib.get_close_matches(j, preferred_ing_list)
         if len(temp_list1)>0:
             recipe_score+=1
         temp_list1.clear()
-        temp_list2 = difflib.get_close_matches(j, prefer_and_avoid_ingredients.summer_avoid_list)
+        temp_list2 = difflib.get_close_matches(j, avoided_ing_list)
         if len(temp_list2)>0:
             recipe_score-=2
         temp_list2.clear()
