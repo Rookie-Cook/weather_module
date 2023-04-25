@@ -15,7 +15,7 @@ list_a = df['TranslatedIngredients'].tolist()
 # print(list_a)
 
 
-redundant_words = np.array(['tablespoon','to','cut','into','chop','well','in','tsp','more','warm','frying','original','low','fat','make','the','inch','all','tightly','packed','required','requirement','finely','taste','for','deep','cook','tablespoons','teaspoon','teaspoons','needed','chopped','roughly','cup','cups','salt','to','taste','thinly','as','per','oil','sliced','slice','or','and','halved','half','soaked','overnight','pressure','cooked','coarse','coarsely','pounded','slit','lengthwise','pinch','fresh','wash','grated'])
+redundant_words = np.array(['tablespoon','a','use','to','cut','of','into','chop','well','in','tsp','more','warm','frying','original','low','fat','make','the','inch','all','tightly','packed','required','requirement','finely','taste','for','deep','cook','tablespoons','teaspoon','teaspoons','needed','chopped','roughly','cup','cups','salt','to','taste','thinly','as','per','oil','sliced','slice','or','and','halved','half','soaked','overnight','pressure','cooked','coarse','coarsely','pounded','slit','lengthwise','pinch','fresh','wash','grated'])
 list_c = []
 
 
@@ -33,6 +33,8 @@ for recipe in list_a:
     
 print("\n\nlist_c is:")
 print(list_c)
+#list_c is a single list consisting of recipes where every recipe is a large string without the ingredeints separated
+
 
 list_d = []
 
@@ -44,6 +46,9 @@ for recipe in list_c:
 
 print("\n\nlist_d is:")
 print(list_d)
+#list_d is a list conisisting of every recipe put in a list and in every such list, 
+# all the ingredeints have also been seperated into individual strings
+
     
 # score_list = []
 # for i in list_d:
@@ -76,26 +81,30 @@ for i in list_d:
         # temp_list2.clear()
     score_dict[str(list_d.index(i))]=recipe_score
 
-#score_dict is a dict contaning items as 'index_of_recipe':score
 print(score_dict)
+print("\n\n")
+#score_dict is a dict contaning items in this manner: 'index_of_recipe':score
 
 sorted_score_dict = dict(sorted(score_dict.items(), key=lambda item: item[1]))
 rev_sorted_score_dict = dict(reversed(list(sorted_score_dict.items())))
 
 
 #FINAL OUTPUT OF LIST OF RECIPES THAT ARE SUGGESTED FOR THE SEASON
+print("All the recipes graded and sorted in decreasing numer of points:")
 print(rev_sorted_score_dict)
+print("\n\n")
 
 suggested_recipes_list = list(rev_sorted_score_dict.keys())
+print("The indexes of the recipes in decreasing order of their points:")
 print(suggested_recipes_list)
-
+print("\n\n")
 #getting the top50_recipes
 top50 = []
 for i in suggested_recipes_list:
-    if suggested_recipes_list.index(i)<=9:
+    if suggested_recipes_list.index(i)<=49:
         top50.append(int(i)+1)
 
-print("\n\n\nThe top 50 recipes are:")
+print("\n\n\nThe top 50 recipes are:")#indices of the top 50 recipes
 print(top50)
 
 list_top50_rec_with_data = []
