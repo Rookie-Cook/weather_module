@@ -14,8 +14,8 @@ n = len(df)
 list_a = df['TranslatedIngredients'].tolist()
 # print(list_a)
 
-
-redundant_words = np.array(['tablespoon','a','use','to','cut','of','into','chop','well','in','tsp','more','warm','frying','original','low','fat','make','the','inch','all','tightly','packed','required','requirement','finely','taste','for','deep','cook','tablespoons','teaspoon','teaspoons','needed','chopped','roughly','cup','cups','salt','to','taste','thinly','as','per','oil','sliced','slice','or','and','halved','half','soaked','overnight','pressure','cooked','coarse','coarsely','pounded','slit','lengthwise','pinch','fresh','wash','grated'])
+redundant_words = np.array(['minutes','tablespoon','a','use','to','cut','of','into','chop','well','in','tsp','more','warm','frying','original','low','fat','make','the','inch','all','tightly','packed','required','requirement','finely','taste','for','deep','cook','tablespoons','teaspoon','teaspoons','needed','chopped','roughly','cup','cups','salt','to','taste','thinly','as','per','oil','sliced','slice','or','and','halved','half','soaked','overnight','pressure','cooked','coarse','coarsely','pounded','slit','lengthwise','pinch','fresh','wash','grated'])
+# print(len(redundant_words))
 list_c = []
 
 
@@ -71,14 +71,14 @@ score_dict = {}
 for i in list_d:
     recipe_score = 0
     for j in i:
-        temp_list1 = difflib.get_close_matches(j, preferred_ing_list)
+        temp_list1 = difflib.get_close_matches(j, preferred_ing_list,n=1,cutoff=0.8)
         if len(temp_list1)>0:
-            recipe_score+=1
-        # temp_list1.clear()
-        temp_list2 = difflib.get_close_matches(j, avoided_ing_list)
+            recipe_score+=2
+            temp_list1.clear()
+        temp_list2 = difflib.get_close_matches(j, avoided_ing_list,n=1,cutoff=0.8)
         if len(temp_list2)>0:
-            recipe_score-=2
-        # temp_list2.clear()
+            recipe_score-=15
+            temp_list2.clear()
     score_dict[str(list_d.index(i))]=recipe_score
 
 print(score_dict)
@@ -101,7 +101,7 @@ print("\n\n")
 #getting the top50_recipes
 top50 = []
 for i in suggested_recipes_list:
-    if suggested_recipes_list.index(i)<=49:
+    if suggested_recipes_list.index(i)<=9:
         top50.append(int(i)+1)
 
 print("\n\n\nThe top 50 recipes are:")#indices of the top 50 recipes
